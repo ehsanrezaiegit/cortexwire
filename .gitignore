@@ -16,6 +16,10 @@
 # next.js
 /.next/
 /out/
+/.content-collections/
+/public/pagefind/
+/public/sitemap.xml
+/public/robots.txt
 
 # production
 /build
