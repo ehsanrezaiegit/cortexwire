@@ -1,9 +1,11 @@
 "use client";
 
 import { useMemo, useRef } from "react";
+import type { MutableRefObject } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
 import { Float, Sparkles } from "@react-three/drei";
 import { AdditiveBlending, type Group } from "three";
+import type { NormalizedPointer } from "@/lib/use-window-pointer";
 
 function makeSpherePoints(count: number, radius: number) {
   const positions = new Float32Array(count * 3);
@@ -40,15 +42,21 @@ function makeOrbitSegments(count: number) {
   return positions;
 }
 
-function Wireform() {
+type HeroSceneProps = {
+  pointerRef: MutableRefObject<NormalizedPointer>;
+};
+
+function Wireform({ pointerRef }: HeroSceneProps) {
   const groupRef = useRef<Group>(null);
   const particlePositions = useMemo(() => makeSpherePoints(180, 2.05), []);
   const orbitPositions = useMemo(() => makeOrbitSegments(72), []);
 
-  useFrame(({ pointer }, delta) => {
+  useFrame((_, delta) => {
     if (!groupRef.current) {
       return;
     }
+
+    const pointer = pointerRef.current;
 
     groupRef.current.rotation.y += delta * 0.1;
     groupRef.current.rotation.x += delta * 0.035;
@@ -119,7 +127,7 @@ function Wireform() {
   );
 }
 
-export function HeroScene() {
+export function HeroScene({ pointerRef }: HeroSceneProps) {
   return (
     <Canvas
       className="h-full w-full"
@@ -136,7 +144,7 @@ export function HeroScene() {
       }}
     >
       <ambientLight intensity={0.8} />
-      <Wireform />
+      <Wireform pointerRef={pointerRef} />
     </Canvas>
   );
 }

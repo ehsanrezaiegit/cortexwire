@@ -2,6 +2,7 @@
 
 import dynamic from "next/dynamic";
 import { Component, type ReactNode, useEffect, useState } from "react";
+import { useWindowPointer } from "@/lib/use-window-pointer";
 
 const LazyHeroScene = dynamic(
   () => import("@/components/hero-scene").then((module) => module.HeroScene),
@@ -66,6 +67,7 @@ function usePrefersReducedMotion() {
 
 export function HeroVisual() {
   const prefersReducedMotion = usePrefersReducedMotion();
+  const pointerRef = useWindowPointer();
   const [isSceneAllowed, setIsSceneAllowed] = useState(false);
 
   useEffect(() => {
@@ -92,7 +94,7 @@ export function HeroVisual() {
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_72%_42%,rgba(79,156,255,0.2),transparent_36%),radial-gradient(circle_at_48%_58%,rgba(255,107,53,0.14),transparent_34%)]" />
       <div className="absolute inset-0 bg-gradient-to-r from-background via-background/80 to-background/35" />
       <SceneErrorBoundary>
-        <LazyHeroScene />
+        <LazyHeroScene pointerRef={pointerRef} />
       </SceneErrorBoundary>
     </div>
   );

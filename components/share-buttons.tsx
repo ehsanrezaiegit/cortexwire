@@ -1,13 +1,17 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Check, Copy, Send, Share2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 export function ShareButtons({ title }: { title: string }) {
   const [copied, setCopied] = useState(false);
+  const [url, setUrl] = useState("");
 
-  const url = typeof window !== "undefined" ? window.location.href : "";
+  useEffect(() => {
+    setUrl(window.location.href);
+  }, []);
+
   const encodedUrl = encodeURIComponent(url);
   const encodedTitle = encodeURIComponent(title);
 

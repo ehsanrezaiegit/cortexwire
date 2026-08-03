@@ -33,7 +33,24 @@ export function NewsletterForm() {
         },
         body: JSON.stringify({ email }),
       });
-      const data = (await response.json()) as { message?: string };
+      const responseForText = response.clone();
+      let data: { message?: string };
+
+      try {
+        data = (await response.json()) as { message?: string };
+      } catch (error) {
+        const rawText = await responseForText
+          .text()
+          .catch(() => "");
+
+        console.error("Newsletter response was not valid JSON", {
+          error,
+          status: response.status,
+          rawResponseText: rawText,
+        });
+
+        throw error;
+      }
 
       if (!response.ok) {
         setSubmitState({
