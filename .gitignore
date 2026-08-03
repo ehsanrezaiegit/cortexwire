@@ -12,6 +12,8 @@
 
 # testing
 /coverage
+/test-results/
+/tests/
 
 # next.js
 /.next/
@@ -29,10 +31,14 @@
 *.pem
 
 # debug
+debug.log
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 .pnpm-debug.log*
+
+# scratch
+/.tmp/
 
 # env files (can opt-in for committing if needed)
 .env*

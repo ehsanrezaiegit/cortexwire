@@ -1,12 +1,14 @@
 import Link from "next/link";
 import { Search, Sparkles } from "lucide-react";
+import { HeroVisual } from "@/components/hero-visual";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 
 export function Hero() {
   return (
     <section className="dot-grid relative overflow-hidden border-b border-white/10">
-      <div className="mx-auto grid min-h-[calc(100svh-4rem)] w-full max-w-7xl content-center gap-8 px-4 py-20 sm:px-6 lg:px-8">
+      <HeroVisual />
+      <div className="relative z-10 mx-auto grid min-h-[calc(100svh-4rem)] w-full max-w-7xl content-center gap-8 px-4 py-20 sm:px-6 lg:px-8">
         <div className="max-w-5xl">
           <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-white/12 bg-white/[0.04] px-3 py-1 text-xs font-semibold text-muted">
             <Sparkles className="size-3.5 text-primary" />
